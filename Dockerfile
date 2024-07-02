@@ -12,7 +12,7 @@ RUN python -m venv .venv \
   && pip install --no-cache-dir -r requirements.txt
 
 # Stage 2: Final Image
-FROM python:3.9
+FROM python:3.12
 
 WORKDIR /app
 
