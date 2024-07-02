@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<section class="mx-auto w-full flex flex-col gap-4 text-center">
+    <img src="https://wallpaperaccess.com/full/171390.jpg" alt="Large Image" class="mx-auto max-w-full h-auto md:max-w-5xl">
+    <h1 class="text-6xl font-extrabold mt-8" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Welcome to the Sith Task List App</h1>
+    <h2 class="text-4xl font-light" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Manage your tasks with the power of the Dark Side.</h2>
+    <hr class="my-4 w-3/4 mx-auto opacity-50">
+    <p class="text-lg font-medium">Already a member?</p>
+    <footer class="flex gap-6 justify-center">
+        <a hx-swap="transition:true" href="{{ url_for('auth_views.login') }}" class="inline-block bg-blue-800 text-white px-10 py-4 rounded-lg shadow-md hover:bg-gray-700 transition duration-300 ease-in-out text-lg font-large">
+            Log In
+        </a>
+        <a hx-swap="transition:true" href="{{ url_for('auth_views.register') }}" class="inline-block bg-purple-600 text-white px-10 py-4 rounded-lg shadow-md hover:bg-purple-500 transition duration-300 ease-in-out text-lg font-large">
+            Sign Up
+        </a>
+    </footer>
+</section>
+{% endblock %}

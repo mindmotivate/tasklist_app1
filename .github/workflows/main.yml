@@ -1,0 +1,62 @@
+name: CI
+
+# Trigger workflow on push events
+on: [push]
+
+jobs:
+  # Bandit security scan job
+  bandit_scan:
+    runs-on: ubuntu-latest  # Run on an Ubuntu runner
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3  # Get code from repository
+
+      - name: Set up Python
+        uses: actions/setup-python@v3  # Set up Python environment
+        with:
+          python-version: 3.8  # Specify Python version
+
+      - name: Install Bandit
+        run: pip install bandit
+
+      - name: Run Bandit Scan
+        run: bandit -ll -ii -r . -f json -o bandit-report.json || true 
+        # -ll: Show only low, medium, or high severity findings
+        # -ii: Show only low, medium, or high confidence findings
+        # -r: Recursively scan all files
+        # .: Scan current directory
+        # -f json: Output results in JSON format
+        # -o bandit-report.json: Write output to file
+
+      - name: Upload Bandit Report
+        uses: actions/upload-artifact@v4  # Upload report as artifact
+        if: always()  # Upload even if previous steps fail
+        with:
+          name: bandit-findings
+          path: bandit-report.json
+
+
+  # Build and push Docker image (separate job)
+  build_and_push:
+    runs-on: ubuntu-latest  # Run on an Ubuntu runner
+
+    steps:
+      - uses: actions/checkout@v4
+        # Get code from repository
+      - name: Set up Node.js 20.x
+        uses: actions/setup-node@v3  # Set up Node.js environment
+        with:
+          node-version: "20.x"  # Specify Node.js version
+      
+      - name: Build Docker Image
+        run: docker build -f Dockerfile -t motivatedmind336/sith_tasklist_app:latest .
+
+      - name: Login to Docker Hub (optional)
+        uses: docker/login-action@v2  # Login (optional, consider automated builds)
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}  # Replace with your username
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}  # Replace with your password
+
+      - name: Push Image to Docker Hub (optional)
+        run: docker push motivatedmind336/sith_tasklist_app:latest  # Push image to Docker Hub

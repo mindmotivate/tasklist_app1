@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dark Side Todo List app with user login and HTMx-powered frontend">
+    <meta name="google" content="notranslate" />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/sith-icon.svg')}}" type="image/svg+xml">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.17/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>Sith Todo List | {% block title %}{% endblock %}</title>
+    <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.9"
+        integrity="sha384-QFjmbokDn2DjBjq+fM+8LUIVrAgqcNW2s0PjAxHETgRn9l4fvX31ZxDxvwQnyMOX"
+        crossorigin="anonymous"></script>
+</head>
+
+<body class="sample-transition" hx-boost="true">
+    <header>
+        {% include "navbar.partial.html" %}
+    </header>
+
+    <main class="pt-40">
+        {% block content %}{% endblock %}
+        {% include "flashmessages.partial.html" %}
+    </main>
+</body>
+
+</html>
