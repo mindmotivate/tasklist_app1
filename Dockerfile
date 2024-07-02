@@ -3,7 +3,7 @@ FROM cgr.dev/chainguard/python:latest-dev as builder
 
 WORKDIR /app
 
-COPY app/requirements.txt .
+COPY requirements.txt .
 
 RUN python -m venv .venv \
     && . .venv/bin/activate \
