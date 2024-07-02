@@ -58,5 +58,5 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}  # Replace with your username
           password: ${{ secrets.DOCKERHUB_PASSWORD }}  # Replace with your password
 
-      - name: Push Image to Docker Hub (optional)
+      - name: Push Image to Docker Hub (optional) # Push image to Docker Hub
         run: docker push motivatedmind336/sith_tasklist_app:latest  # Push image to Docker Hub
